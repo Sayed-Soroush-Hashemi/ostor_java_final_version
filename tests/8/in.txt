@@ -1,0 +1,3 @@
+echo("before T1 kills its process")
+kill_process(1)
+echo("after T1 kills its process")

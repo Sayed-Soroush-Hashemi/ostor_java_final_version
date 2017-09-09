@@ -1,0 +1,15 @@
+semaphore(s, 0)
+semaphore(s2, 0)
+create_thread(x)
+if(x == 0) {
+	echo("before T2 executes wait for semaphore")
+	signal(s)
+	wait(s2)
+	echo("after T2 executes wait for semaphore")
+} 
+if(x != 0) {
+	wait(s)
+	echo("before T1 executes wait for semaphore")
+	wait(s2)
+	echo("after T1 executes wait for semaphore")
+}

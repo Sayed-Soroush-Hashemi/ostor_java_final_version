@@ -1,0 +1,3 @@
+pid: 2
+threads: 1
+child message: 123

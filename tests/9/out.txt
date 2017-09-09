@@ -1,0 +1,4 @@
+before T1 forks
+in T2, after T1 forks itself
+in T1, after T1 forks itself
+before T1 kills its process

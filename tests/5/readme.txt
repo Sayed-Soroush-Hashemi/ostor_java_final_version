@@ -1,0 +1,1 @@
+T1 first forks itself. then waits for T2. Then T2 waits for T1. so this is a deadlock. You have to detect it and kill both threads. so execution ends.

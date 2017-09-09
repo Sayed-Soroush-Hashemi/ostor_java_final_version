@@ -1,0 +1,17 @@
+create_channel("c1")
+create_process(p)
+if(p != 0) {
+	wait_for_process(p)
+	create_thread(x)
+	if(x != 0) {
+		wait_for_thread(x)
+		echo("in T1, after T2 terminated")
+	} 
+	if(x == 0) {
+		wait_for_thread(2)
+		echo("in T2, after T'1 terminated")
+	}
+} 
+if(p == 0) {
+	echo("in T'1")
+}

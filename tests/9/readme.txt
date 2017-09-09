@@ -1,0 +1,1 @@
+T1 forks. then T2 prints something. then T1 prints something and kills T2. then T1 prints something and kills the only process

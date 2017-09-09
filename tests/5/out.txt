@@ -1,0 +1,2 @@
+before T2 executes wait_for_thread T1
+before T1 executes wait_for_thread T2

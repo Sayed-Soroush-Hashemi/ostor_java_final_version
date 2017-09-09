@@ -1,0 +1,10 @@
+semaphore(s, 0)
+create_thread(x)
+if(x == 0) {
+	print_thread_info()
+	signal(s)
+} 
+if(x != 0) {
+	wait(s)
+	echo(concat("child tid: ", x))
+}

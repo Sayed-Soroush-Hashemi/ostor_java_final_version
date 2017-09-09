@@ -1,0 +1,17 @@
+semaphore(s, 0)
+create_thread(x)
+if(x != 0) {
+	wait_for_thread(x)
+	echo("in T1")
+	signal(s)
+}
+if(x == 0) {
+	create_thread(y)
+	if(y == 0) {
+		echo("in T2")
+	} 
+	if (y != 0) {
+		wait(s)
+		echo("in T3")
+	}
+}

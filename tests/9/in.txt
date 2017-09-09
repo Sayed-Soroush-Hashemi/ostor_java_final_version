@@ -1,0 +1,19 @@
+semaphore(s, 0)
+semaphore(s2, 0)
+echo("before T1 forks")
+create_thread(x)
+if(x != 0) {
+	wait(s)
+	echo("in T1, after T1 forks itself")
+	kill_thread(x)
+	signal(s2)
+} 
+if(x == 0) {
+	echo("in T2, after T1 forks itself")
+	signal(s)
+	wait(s2)
+	echo("in T2, after T1 kills T2")
+}
+echo("before T1 kills its process")
+kill_process(1)
+echo("after T1 kills its process")

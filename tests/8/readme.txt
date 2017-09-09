@@ -1,0 +1,1 @@
+the only thread, T1, kills it's process

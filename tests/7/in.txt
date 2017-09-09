@@ -1,0 +1,3 @@
+echo("before T1 kills itself")
+kill_thread(1)
+echo("after T1 kills itself")

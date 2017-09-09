@@ -1,0 +1,42 @@
+create_channel("c1")
+create_thread(x)
+if(x != 0) {
+	wait_for_thread(x)
+}
+if(x == 0) {
+	create_thread(y)
+	if(y != 0) {
+		wait_for_thread(y)
+	} 
+	if(y == 0) {
+		create_process(z)
+	}
+}
+if(x == 0) {
+	if((z != 0) & (y == 0)) {
+		echo("in T3")
+	}
+	if((z != 0) & (y != 0)) {
+		echo("in T2")
+	}
+	if((z == 0) & (y == 0)) {
+		read("c1", m)
+		while(m + 1 == 0) {
+			read("c1", m)
+		}
+		echo("in T'3")
+	}
+	if((z == 0) & (y != 0)) {
+		echo("in T'2")
+	}
+
+}
+if(x != 0) {
+	if(z == 0) {
+		echo("in T'1")
+	}
+	if(z != 0) {
+		echo("in T1")
+		write("c1", 1)
+	}
+}

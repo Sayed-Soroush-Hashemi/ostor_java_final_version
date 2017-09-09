@@ -1,0 +1,13 @@
+create_channel("c1")
+create_process(x)
+if(x == 0) {
+	print_process_info()
+	write("c1", 123)
+}
+if(x != 0) {
+	read("c1", x)
+	while(x + 1 == 0) {
+		read("c1", x)
+	}
+	echo(concat("child message: ", x))
+}
