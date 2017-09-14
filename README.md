@@ -43,7 +43,7 @@ if(x != 0) {
 ```
 
 ### 3. How does this "OS" execute programs?
-First, it compiles each program. It converts all flow control commands(e.g. `if`, and `for`) to a series of `cj`s (conditional jump) and labels. More specifically, an `if` statement checks whether its expression evaluates to `true` or `false`. If it is `true`, it should run all commands in its block and if it doesn't, it should jump to the end of its block. So it's very intuitive to convert all control flow commands to conditional jumps and labels. Details of these new low level commands can be checked in the source code. After this parsing stage, each command is transformed into an instruction, so the os can execute them.
+First, it compiles each program. It converts all flow control commands(e.g. `if`, and `for`) to a series of `cj`s (conditional jump) and labels. More specifically, an `if` statement checks whether its expression evaluates to `true` or `false`. If it is `true`, it should run all commands in its block and if it doesn't, it should jump to the end of its block. So it's very intuitive to convert all control flow commands to conditional jumps and labels. Details of these new low-level commands can be checked in the source code. After this parsing stage, each command is transformed into an instruction, so the os can execute them.
 
 `Instruction` is a class defined in the `hardware` package. It includes an `execute` method. Each type of instruction is derived from it and override its `execute` method to execute itself. These instructions are fed to the `CPU` object directly one by one in the execution process. Some instructions can be accomplished with no interference by the OS, like setting a value to a variable and executing a `cj` command. But some requires special services provided by the OS, like IPC and secondary memory management. `execute` method of these instructions use OS system calls in order to provide the instruction's needs. 
 
@@ -54,29 +54,29 @@ There is a package named `hardware` in the source code. It contains a multitude 
 
 When you turn on the computer, first it creates hardware pieces and plugs them all to the `MotherBoard` object and then boots the OS. More specifically, when the `Main` class runs, it creates a `MotherBoard` object. This object creates all required hardware objects, according to the given arguments(e.g. number of cores). Then it boots the OS. By booting I mean it creates an `Ostor` object and introduces each hardware piece to it one by one. The `Ostor` object creates a driver object for each hardware to manage it. After this stage, the initial program, which its path is given in the arguments, will be compiled. After compilation stage, `Ostor` object has a thread containing the generated sequence of instructions. From now on, the `CPU` object plays the central role. In an "almost" infinite loop, it walks through all its cores one by one and asks them to run a single instruction. 
 
-A core has a `HardwareThread` object. Normally, it gets its next instruction and calls its `execute` method. But if the thread object equals to `null`, then this core is idle and must ask the OS for a thread to run. Note that it`s possible that the OS has no thread in the ready queue. In this case, the core remains idle. The core might realize that the thread it is supposed to run has run out of instructions, has been killed, or is waiting for a process, thread, or semaphore. In this case, it should report to the OS and asks for another thread. This sort of communication between `core` and the OS is accomplished by the interrupt mechanism. Note that the `core`'s timer might cause an interrupt as well. 
+A core has a `HardwareThread` object. Normally, it gets its next instruction and calls its `execute` method. But if the thread object equals to `null`, then this core is idle and must ask the OS for a thread to run. Note that it's possible that the OS has no thread in the ready queue. In this case, the core remains idle. The core might realize that the thread it is supposed to run has run out of instructions, has been killed, or is waiting for a process, thread, or semaphore. In this case, it should report to the OS and asks for another thread. This sort of communication between `core` and the OS is accomplished by the interrupt mechanism. Note that the `core`s timer might cause an interrupt as well. 
 
 So, the simulated computer works just like a normal computer. 
 
 ### 4. How to run the project?
-You just need to run the folliwing commands in terminal:
+You just need to run the following commands in your terminal:
 ```shell
 cd <project directory>
 mkdir out
 cd src
 javac Main.java -d ../out/
 ```
-Now you only need to run the follwing command to run the initial program with Ostor:
+Now you only need to run the following command to run the initial program with Ostor:
 ```shell
 cd ../out/
 java Main [optional arguments] <initial program path>
 ```
 
 ### 5. Who are the contributors?
-The team consists of Elnaz Mehrzadeh, Bahar Salamatian, and of course me. The contributers' github account will be added to this README file soon. 
+The team consists of [Elnaz Mehrzadeh](https://github.com/elie-naz), Bahar Salamatian, and of course me. The contributors' Github account will be added to this README file soon. 
 
-### 6. Why haven't this project been added to git until it was over?
-As team leader, I was responsible for such choices and convincing team members. After so many failures, I learned something about mixture of team work and learning: Never learn two new things at once in the same project. 
+### 6. Why hasn't this project be added to git until it was over?
+As the team leader, I was responsible for such choices and convincing team members. After so many failures, I learned something about the mixture of team work and learning: Never learn two new things at once in the same project. 
 
 ### 7. Why is this readme structured like this?
-I always struggled finding information I want in readme pages. I found the "question-answer" format richest for those who just want to skim, like me.
+I always struggled to find the information I want in readme pages. I found the "question-answer" format richest for those who just want to skim, like me.
